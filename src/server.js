@@ -2,8 +2,10 @@ import express from 'express'
 import * as dotenv from 'dotenv'
 import mainRoute from './routes/index.js'
 import cors from 'cors'
+import dbConfig from './config/mongo.config.js';
 
 dotenv.config();
+dbConfig.connect();
 
 const app = express()
 

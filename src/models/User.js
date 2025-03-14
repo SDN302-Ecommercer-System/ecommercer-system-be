@@ -4,7 +4,6 @@ const userSchema = new mongoose.Schema(
   {
     phone: {
       type: String,
-      required: [true, "phone must be required"],
       unique: [true, "phone must unique"],
     },
 
@@ -17,6 +16,37 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ["user", "admin"],
       default: "user",
+    },
+
+    address: {
+      type: String,
+    },
+
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
+
+    isActive: {
+      type: Boolean,
+      default: false,
+    },
+
+    email: {
+      type: String,
+      match: [
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        "Please enter a valid email address",
+      ],
+      unique: [true, 'this email was existed'],
+    },
+
+    avatar: {
+      type: String,
+    },
+
+    otpVerify: {
+      type: String
     },
   },
   { timestamps: true }

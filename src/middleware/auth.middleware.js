@@ -23,6 +23,8 @@ export const verifyToken = async (req, res, next) => {
   }
 
   req.body.userId = userFound._id;
+  req.userIdUploadImage = userFound._id;
+
   next();
 };
 

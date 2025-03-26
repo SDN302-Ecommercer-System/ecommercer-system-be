@@ -6,10 +6,11 @@ import * as CONSTANT from "../helper/constant/MyConstant.js";
 const orderRouter = Router();
 
 orderRouter.post("/", authMiddleWare.verifyToken, orderController.createOrder);
-orderRouter.get("/", authMiddleWare.verifyToken, orderController.getAllOrders);
+orderRouter.get("/", orderController.getAllOrders);
+orderRouter.get("/list", authMiddleWare.verifyToken, orderController.getAllOrdersOfUser);
+
 orderRouter.put(
   "/:id",
-  authMiddleWare.verifyToken,
   orderController.updateOrderStatus
 );
 orderRouter.get(

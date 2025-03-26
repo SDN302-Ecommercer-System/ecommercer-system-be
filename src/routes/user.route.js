@@ -8,7 +8,19 @@ const userRoute = Router();
 
 userRoute.get("/", userMiddleWare.verifyName, userController.getHello);
 userRoute.post("/login", userController.login);
+userRoute.post(
+  "/change-password",
+  authMiddleWare.verifyToken,
+  userController.changePassword
+);
 userRoute.post("/register", userController.register);
+
+userRoute.put(
+  "/update-profile",
+  authMiddleWare.verifyToken,
+  userController.updateProfile
+);
+
 userRoute.get(
   "/protected",
   authMiddleWare.verifyToken,
@@ -21,6 +33,13 @@ userRoute.get(
   authMiddleWare.verifyToken,
   authMiddleWare.verifyRole(CONSTANT.USER_ROLE),
   userController.getUser
+);
+
+userRoute.get(
+  "/list",
+  authMiddleWare.verifyToken,
+  authMiddleWare.verifyRole(CONSTANT.ADMIN_ROLE),
+  userController.getAllUser
 );
 
 export default userRoute;

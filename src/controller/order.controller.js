@@ -54,6 +54,22 @@ export const getAllOrders = async (req, res) => {
   }
 };
 
+
+// Lấy tất cả Orders
+export const getAllOrdersOfUser = async (req, res) => {
+  try {
+    const {userId} = req.body;
+    const orders = await Order.find({user: userId})
+      .populate("user")
+      .populate("items.product")
+      .populate("items.color");
+    res.status(200).json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // Lấy chi tiết Order
 export const getOrderById = async (req, res) => {
   try {

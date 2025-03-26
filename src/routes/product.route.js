@@ -5,19 +5,30 @@ import * as CONSTANT from "../helper/constant/MyConstant.js";
 
 const productRouter = Router();
 
+// Public routes (no auth required)
+productRouter.get("/", productController.getAllProduct);
+productRouter.get("/:id", productController.getProductById);
+
+// Admin only routes
 productRouter.post(
   "/",
   authMiddleWare.verifyToken,
-  authMiddleWare.verifyRole(CONSTANT.USER_ROLE),
+  authMiddleWare.verifyRole(CONSTANT.ADMIN_ROLE),
   productController.addProduct
 );
-productRouter.get(
-  "/",
-  productController.getAllProduct
-);
-productRouter.get(
+
+productRouter.put(
   "/:id",
-  productController.getProductById
+  authMiddleWare.verifyToken,
+  authMiddleWare.verifyRole(CONSTANT.ADMIN_ROLE),
+  productController.updateProduct
+);
+
+productRouter.delete(
+  "/:id",
+  authMiddleWare.verifyToken,
+  authMiddleWare.verifyRole(CONSTANT.ADMIN_ROLE),
+  productController.deleteProduct
 );
 
 export default productRouter;
